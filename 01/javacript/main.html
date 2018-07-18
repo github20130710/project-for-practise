@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>字符串按单词反转</title>
+  <script type="text/javascript" src="utils/javascript/main.js"></script>
+  <style type="text/css">
+    .container {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: beige;
+    }
+    .content input {
+      line-height: 26px;
+      padding: 1px 2px;
+      width: 80%;
+    }
+    .row {
+      width: 100%;
+      margin: 5px 15px;
+    }
+    .result {
+      margin-left: 10px;
+      background-color: aquamarine;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <div class="row">
+        <span>请输入要反转的字符串：</span>
+        <input type="text" id="source" value="Forget the memories, continue to be life, miss, just pass by."/>
+      </div>
+      <div class="row">
+        <button></button>
+        <span class="result"></span>
+        <p class="thought">思路1：使用字符串split、reverse等方法。</p>
+      </div>
+      <div class="row">
+        <button></button>
+        <span class="result"></span>
+        <p class="thought">思路2：从后向前遍历。</p>
+      </div>
+      <div class="row">
+        <button></button>
+        <span class="result"></span>
+        <p class="thought">思路3：使用栈结构。</p>
+      </div>
+      <div class="row">
+        <button></button>
+        <span class="result"></span>
+        <p class="thought">思路4：递归。</p>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  /**
+   ********* 最简单的办法，使用字符串split、reverse等命令
+  * 注意标点符号反转－－－将标点符号也算作字符进行处理
+  * 注意_和__的情况，空格不规范的处理
+  */
+  function fn1(str){
+    return str.split(" ").reverse().join(" ") || "";
+  }
+
+  function fn2(str){
+    if(str==null || str==undefined || str.length==0)  return "";
+    var words = [], charIndex = 0;
+    for(var i=0; i<str.length; i++) {
+      var a = str.charAt(i);
+      if(a==" "){
+        words.push(str.substring(charIndex, i));
+        charIndex = i;
+      }
+    }
+    if(charIndex < str.length)    words.push(str.substring(charIndex));
+    console.log(words);
+    //  剩下的部分就是反转，拼装
+  }
+
+  /**
+   * 
+   */
+
+  function onclickFn1(){
+    var str = document.getElementById("source").value;
+    var s = fn1(str);
+    document.getElementsByClassName("result")[0].innerHTML = s;
+  }
+
+  function onclickFn2(){
+    var str = document.getElementById("source").value;
+    var s = fn2(str);
+    document.getElementsByClassName("result")[1].innerHTML = s;
+  }
+
+  var htmlBtns = document.getElementsByTagName("button");
+  for(var i=0; i<htmlBtns.length; i++){
+    var item = htmlBtns[i];
+    item.innerHTML = "方法"+(i+1);
+    item.setAttribute("id", Number.parseInt(i+1));
+    item.onclick = function(){
+      var uid = this.getAttribute('id');
+      eval("onclickFn"+ uid +"()");
+    };
+  } 
+</script>
+</html>
